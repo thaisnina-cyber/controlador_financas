@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu App de Finanças</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 500px; margin: auto; }
+        .vermelho { color: red; }
+        .verde { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Minhas Finanças</h1>
+    
+    <div>
+        <p>Sua Renda: <b id="txt-renda">R$ 0,00</b></p>
+        <p>Saldo Atual: <b id="txt-saldo">R$ 0,00</b></p>
+    </div>
+
+    <hr>
+    
+    <h3>Novo Gasto</h3>
+    <input type="text" id="nome" placeholder="O que comprou?">
+    <input type="number" id="valor" placeholder="Quanto custou?">
+    <select id="categoria">
+        <option value="fixo">Fixo</option>
+        <option value="variavel">Variável</option>
+    </select>
+    <button onclick="adicionarGasto()">Salvar no Python</button>
+
+    <h3>Histórico</h3>
+    <div id="lista-gastos"></div>
+
+    <!-- Aqui a gente "cola" o JS no HTML -->
+    <script src="script.js"></script>
+</body>
+</html>
