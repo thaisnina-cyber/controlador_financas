@@ -1,0 +1,30 @@
+💰Projeto de Controlador de Finanças
+Este projeto é um controlador simples de finanças pessoais feito em Python. Ele permite registrar entradas de gastos e pagamentos, calcular totais e verificar se o saldo do mês está positivo ou negativo.
+
+🚀 Novas Funcionalidades (Atualização)
+
+Nesta última versão, implementei melhorias importantes no gerenciamento dos dados:
+
+Armazenamento em Histórico: Agora todas as entradas são salvas em uma lista de dicionários chamada historico.
+
+Listagem Numerada: Utilização do comando enumerate() para exibir os gastos de forma organizada e sequencial.
+
+Validação de Dados: Melhoria na captura de categorias, nomes e preços das despesas.
+
+Cálculo de Totais: Exibição do resumo financeiro ao encerrar o programa.
+
+📋 Como funciona O usuário informa o nome, a categoria e o valor da despesa. O programa armazena esses dados em uma "ficha" (dicionário). Ao final (ou durante a execução), o sistema percorre o histórico e mostra cada item detalhadamente. O saldo final é calculado automaticamente.
+
+🛠️ Tecnologias Utilizadas
+Python 3 Git & GitHub (para versionamento)
+
+📌 Melhorias futuras
+Adicionar persistência dos dados (salvar histórico em arquivo).
+Criar relatórios mensais.
+Implementar interface gráfica ou web.
+Categorizar despesas de forma mais detalhada.
+Como executar
+📋 Como executar Abra o terminal e vá até a pasta onde está o projeto: cd codes Rode o arquivo principal com: python controlador_financas.py
+
+Autor
+Feito por Thais.
