@@ -1,30 +1,41 @@
-💰Projeto de Controlador de Finanças
-Este projeto é um controlador simples de finanças pessoais feito em Python. Ele permite registrar entradas de gastos e pagamentos, calcular totais e verificar se o saldo do mês está positivo ou negativo.
+# 💰 Meu Gestor Financeiro
 
-🚀 Novas Funcionalidades (Atualização)
+Este é um projeto de controle de gastos pessoais que utiliza **Python** no back-end para persistência de dados e **JavaScript/HTML/CSS** no front-end para a interface do usuário.
 
-Nesta última versão, implementei melhorias importantes no gerenciamento dos dados:
+## 🚀 Funcionalidades
+- Definição de renda mensal.
+- Cadastro de gastos fixos e variáveis.
+- Cálculo automático de saldo em tempo real.
+- Armazenamento persistente em arquivo JSON.
 
-Armazenamento em Histórico: Agora todas as entradas são salvas em uma lista de dicionários chamada historico.
+## 🛠️ Tecnologias Utilizadas
+- **Linguagens:** Python e JavaScript.
+- **Back-end:** [Flask](https://palletsprojects.com) (API para gerenciar os dados).
+- **Front-end:** HTML5 e CSS3 (Interface responsiva).
+- **Dados:** JSON (Persistência local).
 
-Listagem Numerada: Utilização do comando enumerate() para exibir os gastos de forma organizada e sequencial.
+## 📋 Como rodar o projeto
 
-Validação de Dados: Melhoria na captura de categorias, nomes e preços das despesas.
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com
+   ```
 
-Cálculo de Totais: Exibição do resumo financeiro ao encerrar o programa.
+2. **Instale as dependências (Back-end):**
+   Certifique-se de ter o Python instalado e instale o Flask e o Flask-CORS:
+   ```bash
+   pip install flask flask-cors
+   ```
 
-📋 Como funciona O usuário informa o nome, a categoria e o valor da despesa. O programa armazena esses dados em uma "ficha" (dicionário). Ao final (ou durante a execução), o sistema percorre o histórico e mostra cada item detalhadamente. O saldo final é calculado automaticamente.
+3. **Inicie o servidor Python:**
+   No terminal, dentro da pasta do projeto, execute:
+   ```bash
+   python controlador_financas.py
+   ```
+   *Mantenha este terminal aberto para que o "motor" do app funcione.*
 
-🛠️ Tecnologias Utilizadas
-Python 3 Git & GitHub (para versionamento)
+4. **Abra a Interface:**
+   Basta abrir o arquivo `index.html` em qualquer navegador.
 
-📌 Melhorias futuras
-Adicionar persistência dos dados (salvar histórico em arquivo).
-Criar relatórios mensais.
-Implementar interface gráfica ou web.
-Categorizar despesas de forma mais detalhada.
-Como executar
-📋 Como executar Abra o terminal e vá até a pasta onde está o projeto: cd codes Rode o arquivo principal com: python controlador_financas.py
-
-Autor
-Feito por Thais.
+## ✒️ Autora
+Desenvolvido por **Thais** - [thaisnina-cyber](https://github.com)
