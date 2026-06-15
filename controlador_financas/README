@@ -1,0 +1,41 @@
+# 💰 Meu Gestor Financeiro
+
+Este é um projeto de controle de gastos pessoais que utiliza **Python** no back-end para persistência de dados e **JavaScript/HTML/CSS** no front-end para a interface do usuário.
+
+## 🚀 Funcionalidades
+- Definição de renda mensal.
+- Cadastro de gastos fixos e variáveis.
+- Cálculo automático de saldo em tempo real.
+- Armazenamento persistente em arquivo JSON.
+
+## 🛠️ Tecnologias Utilizadas
+- **Linguagens:** Python e JavaScript.
+- **Back-end:** [Flask](https://palletsprojects.com) (API para gerenciar os dados).
+- **Front-end:** HTML5 e CSS3 (Interface responsiva).
+- **Dados:** JSON (Persistência local).
+
+## 📋 Como rodar o projeto
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com
+   ```
+
+2. **Instale as dependências (Back-end):**
+   Certifique-se de ter o Python instalado e instale o Flask e o Flask-CORS:
+   ```bash
+   pip install flask flask-cors
+   ```
+
+3. **Inicie o servidor Python:**
+   No terminal, dentro da pasta do projeto, execute:
+   ```bash
+   python controlador_financas.py
+   ```
+   *Mantenha este terminal aberto para que o "motor" do app funcione.*
+
+4. **Abra a Interface:**
+   Basta abrir o arquivo `index.html` em qualquer navegador.
+
+## ✒️ Autora
+Desenvolvido por **Thais** - [thaisnina-cyber](https://github.com)

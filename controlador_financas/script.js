@@ -1,12 +1,12 @@
 const URL_API = "http://127.0.0.1:5000/dados";
 
-// Abre/Fecha formulário inline de Renda
+
 function toggleRendaForm() {
     const form = document.getElementById('renda-form-container');
     form.style.display = form.style.display === 'block' ? 'none' : 'block';
 }
 
-// 1. Carregar dados do Backend
+
 async function carregarDados() {
     try {
         const resposta = await fetch(URL_API);
@@ -15,7 +15,7 @@ async function carregarDados() {
         const renda = dados.renda || 0;
         const historico = dados.historico || [];
         
-        // Atualiza a Renda na tela
+        
         document.getElementById('txt-renda').innerText = `R$ ${renda.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         
         exibirDadosNaTela(renda, historico);
@@ -24,7 +24,7 @@ async function carregarDados() {
     }
 }
 
-// 2. Atualizar Renda Mensal
+
 async function atualizarRenda() {
     const input = document.getElementById('renda-input');
     const novaRenda = parseFloat(input.value);
@@ -49,15 +49,18 @@ async function atualizarRenda() {
     }
 }
 
-// 3. Adicionar um Novo Gasto
+
 async function adicionarGasto() {
     const inputNome = document.getElementById('nome');
     const inputValor = document.getElementById('valor');
     const inputCategoria = document.getElementById('categoria');
+    const inputMesAno = document.getElementById('mesAno');
+
     
     const nome = inputNome.value.trim();
     const valor = parseFloat(inputValor.value);
     const categoria = inputCategoria.value;
+    const mesAno = inputMesAno.value;
     
     if (!nome) {
         alert("Por favor, preencha a descrição do gasto.");
@@ -73,12 +76,12 @@ async function adicionarGasto() {
         await fetch(`${URL_API}/gasto`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome: nome, preco: valor, categoria: categoria })
+            body: JSON.stringify({ nome: nome, preco: valor, categoria: categoria, mesAno: mesAno })
         });
         
-        // Limpa formulário
         inputNome.value = "";
         inputValor.value = "";
+        inputMesAno.value = "";
         
         carregarDados();
     } catch (erro) {
@@ -86,7 +89,6 @@ async function adicionarGasto() {
     }
 }
 
-// 4. Deletar Gasto
 async function deletarGasto(id) {
     if (!confirm("Deseja realmente excluir este gasto?")) return;
     
@@ -100,7 +102,6 @@ async function deletarGasto(id) {
     }
 }
 
-// 5. Funções do Modal de Edição
 function abrirModalEditar(id, nome, preco, categoria) {
     document.getElementById('edit-id').value = id;
     document.getElementById('edit-nome').value = nome;
@@ -144,7 +145,7 @@ async function salvarEdicaoGasto() {
     }
 }
 
-// 6. Atualizar a Tela e Dashboard
+
 function exibirDadosNaTela(renda, historico) {
     const lista = document.getElementById('lista-gastos');
     lista.innerHTML = "";
@@ -157,12 +158,11 @@ function exibirDadosNaTela(renda, historico) {
         historico.forEach(item => {
             totalGasto += item.preco;
             
-            // Ícones e tags para Categoria
-            const icon = item.categoria === 'fixo' ? '📌' : '⚡';
+                       const icon = item.categoria === 'fixo' ? '📌' : '⚡';
             const badgeClass = item.categoria === 'fixo' ? 'badge-fixo' : 'badge-variavel';
             const catName = item.categoria === 'fixo' ? 'Fixo' : 'Variável';
             
-            // Escapa aspas para evitar bugs no HTML
+            
             const nomeEscapado = item.nome.replace(/'/g, "\\'").replace(/"/g, '&quot;');
             
             lista.innerHTML += `
@@ -193,7 +193,7 @@ function exibirDadosNaTela(renda, historico) {
         });
     }
     
-    // Atualiza cards
+   
     document.getElementById('txt-despesas').innerText = `R$ ${totalGasto.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     
     const saldo = renda - totalGasto;
@@ -202,7 +202,7 @@ function exibirDadosNaTela(renda, historico) {
     
     txtSaldo.innerText = `R$ ${saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     
-    // Altera cores dinâmicas do saldo
+    
     if (saldo < 0) {
         txtSaldo.style.color = "var(--color-danger)";
         cardSaldo.style.setProperty('--badge-color', 'var(--color-danger)');
@@ -212,5 +212,5 @@ function exibirDadosNaTela(renda, historico) {
     }
 }
 
-// Inicia buscando os dados
+
 carregarDados();

@@ -1,0 +1,40 @@
+{
+    "valor_da_renda": 3000,
+    "lista_de_gastos": [
+        {
+            "id": "e13196b1",
+            "nome": "cart\u00e3o de cr\u00e9dito",
+            "preco": 1856,
+            "categoria": "variavel",
+            "data_hora": "14/06/2026 19:59"
+        },
+        {
+            "id": "9cb4439b",
+            "nome": "conta de agua",
+            "preco": 88,
+            "categoria": "variavel",
+            "data_hora": "14/06/2026 20:00"
+        },
+        {
+            "id": "ad05d48c",
+            "nome": "cart\u00e3o de cr\u00e9dito",
+            "preco": 600,
+            "categoria": "variavel",
+            "data_hora": "14/06/2026 20:00"
+        },
+        {
+            "id": "8f4fc885",
+            "nome": "Verinha",
+            "preco": 147,
+            "categoria": "variavel",
+            "data_hora": "14/06/2026 20:00"
+        },
+        {
+            "id": "e6e8bae2",
+            "nome": "cigarro",
+            "preco": 86.9,
+            "categoria": "variavel",
+            "data_hora": "14/06/2026 20:01"
+        }
+    ]
+}

@@ -1,24 +1,26 @@
 # 💰 Meu Gestor Financeiro
 
-Este é um projeto de controle de gastos pessoais que utiliza **Python** no back-end para persistência de dados e **JavaScript/HTML/CSS** no front-end para a interface do usuário.
+Este é um projeto de controle de gastos pessoais que utiliza **Python (Flask)** no back-end para gerenciar a API e persistência de dados, e **JavaScript/HTML/CSS** no front-end para uma interface de usuário moderna e fluida.
 
 ## 🚀 Funcionalidades
-- Definição de renda mensal.
-- Cadastro de gastos fixos e variáveis.
-- Cálculo automático de saldo em tempo real.
-- Armazenamento persistente em arquivo JSON.
+- **Dashboard Financeiro:** Cards interativos exibindo Renda Mensal, Despesas Totais e Saldo Livre.
+- **Renda Dinâmica:** Edição simples e em tempo real da sua renda direto no painel principal.
+- **Cadastro Inteligente:** Cadastro de gastos (Fixos ou Variáveis) com geração automática de **ID único** e **data/hora** do registro.
+- **Feedback Visual (Dark Mode Premium):** Interface moderna e escura (estilo Dark Mode) com alertas visuais dinâmicos (cor do saldo fica verde se positivo ou vermelha se negativo).
+- **Gerenciamento Completo (CRUD):** Edição rápida e exclusão individual de qualquer gasto diretamente no histórico.
+- **Persistência de Dados:** Armazenamento local persistente em arquivo JSON (`dados.json`).
 
 ## 🛠️ Tecnologias Utilizadas
-- **Linguagens:** Python e JavaScript.
-- **Back-end:** [Flask](https://palletsprojects.com) (API para gerenciar os dados).
-- **Front-end:** HTML5 e CSS3 (Interface responsiva).
-- **Dados:** JSON (Persistência local).
+- **Linguagens:** Python 3 e JavaScript (ES6).
+- **Back-end:** [Flask](https://palletsprojects.com) e Flask-CORS (API Rest).
+- **Front-end:** HTML5, CSS3 moderno (Flexbox, Grid e Variáveis CSS) com fontes do Google Fonts (*Inter*).
+- **Dados:** JSON (Persistência local leve).
 
 ## 📋 Como rodar o projeto
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com
+   git clone https://github.com/thaisnina-cyber/controlador_financas.git
    ```
 
 2. **Instale as dependências (Back-end):**
@@ -32,10 +34,10 @@ Este é um projeto de controle de gastos pessoais que utiliza **Python** no back
    ```bash
    python controlador_financas.py
    ```
-   *Mantenha este terminal aberto para que o "motor" do app funcione.*
+   *Mantenha este terminal aberto para que a API continue funcionando.*
 
 4. **Abra a Interface:**
-   Basta abrir o arquivo `index.html` em qualquer navegador.
+   Basta abrir o arquivo `index.HTML` em qualquer navegador.
 
 ## ✒️ Autora
-Desenvolvido por **Thais** - [thaisnina-cyber](https://github.com)
+Desenvolvido por **Thais** - [thaisnina-cyber](https://github.com/thaisnina-cyber)
