@@ -10,20 +10,53 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Sistema de Variáveis de Cores (Dark Mode Premium) */
+        /* Sistema de Variáveis de Cores (Plutus Premium Light) */
         :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: #1e293b90;
-            --border-color: #334155;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --color-primary: #6366f1; /* Indigo */
-            --color-primary-hover: #4f46e5;
-            --color-success: #10b981; /* Esmeralda */
-            --color-danger: #ef4444; /* Vermelho */
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --border-color: #cbd5e1;
+            --text-primary: #13120f;
+            --text-secondary: #64748b;
+        /* Gradiente Dourado Corporativo */
+        --gold-gradient: linear-gradient(135deg, #f3d078 0%, #c49333 50%, #9a6b1f 100%);
+            --color-primary: #c49333; /* Indigo */
+            --color-primary-hover: #9a6b1f;
+            --color-success: #c49333; /* Esmeralda */
+            --color-danger: #a02f2ff3; /* Vermelho */
             --color-warning: #f59e0b; /* Âmbar */
             --font-main: 'Inter', sans-serif;
+        }
+        .filter-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-bottom: 5px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-group select {
+            padding: 8px 12px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
         }
 
         * {
@@ -51,24 +84,34 @@
             gap: 25px;
         }
 
-        /* Header */
+        /* Header Premium Plutus */
         header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 25px;
+            padding-top: 1.5rem;
         }
 
         header h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #a78bfa, var(--color-primary));
+            font-family: 'Inter', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            margin: 0;
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.08));
+            text-transform: uppercase;
         }
 
         header p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+            color: #475569;
+            font-family: sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-top: 0.6rem;
+            text-transform: uppercase;
         }
 
         /* Dashboard de Saldo */
@@ -89,13 +132,14 @@
             gap: 8px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            border-color: #475569;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+            border-color: #94a3b8;
         }
 
         .card::before {
@@ -103,14 +147,13 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 5px;
             height: 100%;
-            background-color: var(--color-primary);
         }
 
-        .card.card-renda::before { background-color: var(--color-primary); }
-        .card.card-despesas::before { background-color: var(--color-warning); }
-        .card.card-saldo::before { background-color: var(--badge-color, var(--color-success)); }
+        .card.card-renda::before { background: linear-gradient(to bottom, #f3d078, #c49333) !important; }
+        .card.card-despesas::before { background-color: var(--color-danger)!important; }
+        .card.card-saldo::before { background: linear-gradient(to bottom, #f3d078, #c49333) !important; }
 
         .card-title {
             font-size: 0.85rem;
@@ -126,9 +169,24 @@
         .card-value {
             font-size: 1.8rem;
             font-weight: 700;
+            color: #0f172a 
         }
-
-        .card-btn-edit {
+            #txt-renda {
+                background: var(--gold-gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+        }
+            #txt-despesas {
+                color: var(--color-danger) !important;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: var(--color-danger) !important;
+        }
+            #txt-saldo {
+                background: var(--gold-gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+    }    
+       .card-btn-edit {
             background: none;
             border: none;
             color: var(--color-primary);
@@ -139,7 +197,7 @@
         }
 
         .card-btn-edit:hover {
-            color: #a78bfa;
+            color: var(--color-primary-hover);
             text-decoration: underline;
         }
 
@@ -159,6 +217,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
 
         .section-title {
@@ -191,8 +250,8 @@
         }
 
         input, select {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
+            background-color: #ffffff; /* Fundo totalmente branco para os campos ficarem limpos */
+            border: 1px solid #cbd5e1; /* Borda cinza suave moderna */
             border-radius: 8px;
             padding: 12px;
             color: var(--text-primary);
@@ -202,12 +261,13 @@
         }
 
         input:focus, select:focus {
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            border-color: var(--color-primary); /* Brilha dourado ao clicar */
+            box-shadow: 0 0 0 3px rgba(196, 147, 51, 0.15);
         }
 
+    /* Botão Principal Dourado Metálico */
         button.btn {
-            background-color: var(--color-primary);
+            background: var(--gold-gradient);
             color: white;
             border: none;
             border-radius: 8px;
@@ -215,19 +275,20 @@
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: opacity 0.2s, transform 0.1s;
             display: inline-flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(196, 147, 51, 0.2);
         }
 
         button.btn:hover {
-            background-color: var(--color-primary-hover);
+            opacity: 0.9;
         }
 
         button.btn:active {
-            transform: scale(0.98);
+  transform: scale(0.98);
         }
 
         button.btn-secundario {
@@ -237,7 +298,7 @@
         }
 
         button.btn-secundario:hover {
-            background-color: var(--border-color);
+            background-color: #f1f5f9;
         }
 
         /* Seção Histórico */
@@ -249,13 +310,14 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
 
         .historico-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
+        }   
 
         .gastos-lista {
             display: flex;
@@ -264,7 +326,7 @@
         }
 
         .gasto-item {
-            background-color: var(--bg-primary);
+            background-color: #ffffff; /* Itens do histórico brancos e limpos */
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 16px;
@@ -272,13 +334,15 @@
             justify-content: space-between;
             align-items: center;
             gap: 15px;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
             animation: slideIn 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
         }
 
         .gasto-item:hover {
             transform: translateX(4px);
-            border-color: #475569;
+            border-color: #94a3b8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
 
         .gasto-info {
@@ -289,7 +353,7 @@
 
         .gasto-categoria-icon {
             font-size: 1.3rem;
-            background-color: var(--bg-secondary);
+            background-color: #f8fafc;
             width: 42px;
             height: 42px;
             border-radius: 10px;
@@ -325,14 +389,15 @@
             text-transform: uppercase;
         }
 
+        /* Badges discretas sem cores neon gritantes */
         .badge-fixo {
-            background-color: rgba(99, 102, 241, 0.15);
-            color: #a5b4fc;
+            background-color: rgba(196, 147, 51, 0.1);
+            color: #c49333;
         }
 
         .badge-variavel {
-            background-color: rgba(245, 158, 11, 0.15);
-            color: #fde047;
+            background-color: rgba(100, 116, 139, 0.1);
+            color: #64748b;
         }
 
         .gasto-valores {
@@ -366,17 +431,17 @@
         }
 
         .btn-acao:hover {
-            background-color: var(--bg-secondary);
+            background-color: #f1f5f9;
         }
 
         .btn-excluir:hover {
             color: var(--color-danger);
-            background-color: rgba(239, 68, 68, 0.1);
+            background-color: rgba(239, 68, 68, 0.08);
         }
 
         .btn-editar:hover {
             color: var(--color-primary);
-            background-color: rgba(99, 102, 241, 0.1);
+            background-color: rgba(196, 147, 51, 0.08);
         }
 
         /* Modal / Edit Overlay */
@@ -387,7 +452,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.6);
+            background-color: rgba(15, 23, 42, 0.4); /* Escurecimento suave em azul escuro */
             backdrop-filter: blur(4px);
             justify-content: center;
             align-items: center;
@@ -405,6 +470,7 @@
             flex-direction: column;
             gap: 20px;
             animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
         /* Utilitários */
@@ -432,118 +498,162 @@
 
         /* Responsividade */
         @media (max-width: 600px) {
-            body { padding: 20px 10px; }
-            .form-row { flex-direction: column; }
-            .gasto-item { flex-direction: column; align-items: flex-start; }
-            .gasto-valores { width: 100%; justify-content: space-between; margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 10px; }
+            body {
+             padding: 20px 10px;
         }
+        .form-row {
+            flex-direction: column;
+        }
+        .gasto-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .gasto-valores {
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 10px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+        }
+    
     </style>
-</head>
-<body>
+    </head>
+    <body>
     <div class="container">
-        
-        <header>
-            <h1>Meu Gestor Financeiro</h1>
-            <p>Monitore suas finanças e economize com inteligência</p>
-        </header>
+    
+        <!-- Cabeçalho Premium Plutus -->
+    <header>
+      <h1>Plutus</h1>
+      <p>Inteligência Financeira</p>
+    </header>
+    <!-- Filtro de Período -->
+    <div class="filter-container">
+      <div class="filter-group">
+        <label for="filtro-mes">Mês</label>
+        <select id="filtro-mes">
+          <option value="01">Janeiro</option>
+          <option value="02">Fevereiro</option>
+          <option value="03">Março</option>
+          <option value="04">Abril</option>
+          <option value="05">Maio</option>
+          <option value="06">Junho</option>
+          <option value="07">Julho</option>
+          <option value="08">Agosto</option>
+          <option value="09">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+      </div>
 
-        <!-- Dashboard -->
-        <section class="dashboard">
-            <div class="card card-renda">
-                <div class="card-title">
-                    <span>Renda Mensal</span>
-                    <button class="card-btn-edit" onclick="toggleRendaForm()">Editar</button>
-                </div>
-                <div class="card-value" id="txt-renda">R$ 0,00</div>
-                
-                <!-- Formulário Inline para Renda -->
-                <div class="renda-form-container" id="renda-form-container">
-                    <div style="display: flex; gap: 8px;">
-                        <input type="number" id="renda-input" placeholder="R$ Renda" style="padding: 8px; font-size: 0.85rem; flex: 1;">
-                        <button class="btn" onclick="atualizarRenda()" style="padding: 8px 12px; font-size: 0.85rem;">Salvar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card card-despesas">
-                <div class="card-title">Despesas Totais</div>
-                <div class="card-value" id="txt-despesas" style="color: var(--color-warning);">R$ 0,00</div>
-            </div>
-
-            <div class="card card-saldo" id="card-saldo">
-                <div class="card-title">Saldo Livre</div>
-                <div class="card-value" id="txt-saldo">R$ 0,00</div>
-            </div>
-        </section>
-
-        <!-- Form Novo Gasto -->
-        <section class="section-form">
-            <h3 class="section-title">⚡ Registrar Novo Gasto</h3>
-            <div class="form-row">
-                <div class="form-group" style="flex: 2;">
-                    <label for="nome">Descrição</label>
-                    <input type="text" id="nome" placeholder="O que você comprou?">
-                </div>
-                <div class="form-group">
-                    <label for="valor">Valor (R$)</label>
-                    <input type="number" id="valor" step="0.01" min="0.01" placeholder="0.00">
-                </div>
-                <div class="form-group">
-                    <label for="categoria">Categoria</label>
-                    <select id="categoria">
-                        <option value="fixo">Fixo</option>
-                        <option value="variavel" selected>Variável</option>
-                    </select>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: flex-end; margin-top: 5px;">
-                <button class="btn" onclick="adicionarGasto()">➕ Salvar Gasto</button>
-            </div>
-        </section>
-
-        <!-- Histórico -->
-        <section class="section-historico">
-            <div class="historico-header">
-                <h3 class="section-title">📊 Histórico de Gastos</h3>
-            </div>
-            <div class="gastos-lista" id="lista-gastos">
-                <!-- Preenchido via JavaScript -->
-            </div>
-        </section>
-
+      <div class="filter-group">
+        <label for="filtro-ano">Ano</label>
+        <select id="filtro-ano">
+          <option value="2025">2025</option>
+          <option value="2026" selected>2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+        </select>
+      </div>
     </div>
 
-    <!-- Modal de Edição -->
-    <div class="modal" id="modal-editar">
-        <div class="modal-content">
-            <h3 class="section-title" style="margin-bottom: 10px;">✏️ Editar Gasto</h3>
-            <input type="hidden" id="edit-id">
-            
-            <div class="form-group">
-                <label for="edit-nome">Descrição</label>
-                <input type="text" id="edit-nome">
-            </div>
-            
-            <div class="form-group">
-                <label for="edit-valor">Valor (R$)</label>
-                <input type="number" id="edit-valor" step="0.01" min="0.01">
-            </div>
-            
-            <div class="form-group">
-                <label for="edit-categoria">Categoria</label>
-                <select id="edit-categoria">
-                    <option value="fixo">Fixo</option>
-                    <option value="variavel">Variável</option>
-                </select>
-            </div>
-
-            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
-                <button class="btn btn-secundario" onclick="fecharModalEditar()">Cancelar</button>
-                <button class="btn" onclick="salvarEdicaoGasto()">Salvar Alterações</button>
-            </div>
+    <!-- Dashboard -->
+    <section class="dashboard">
+      <div class="card card-renda">
+        <div class="card-title">
+          <span>Renda Mensal</span>
+          <button class="card-btn-edit" onclick="toggleRendaForm()">Editar</button>
         </div>
-    </div>
+        <div class="card-value" id="txt-renda">R$ 0,00</div>
+        
+                <!-- Formulário Inline para Renda Ajustado -->
+        <div class="renda-form-container" id="renda-form-container" style="margin-top: 15px;">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="number" id="renda-input" placeholder="Digite a renda (R$)" style="padding: 10px; font-size: 0.9rem; width: 100%;">
+            <button class="btn" onclick="atualizarRenda()" style="padding: 10px; font-size: 0.9rem; width: 100%; justify-content: center;">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
 
-    <script type="module" src="ui.js"></script>
+      <div class="card card-despesas">
+        <div class="card-title">Despesas Totais</div>
+        <div class="card-value" id="txt-despesas">R$ 0,00</div>
+
+      </div>
+
+      <div class="card card-saldo" id="card-saldo">
+        <div class="card-title">Saldo Livre</div>
+        <div class="card-value" id="txt-saldo">R$ 0,00</div>
+      </div>
+    </section>
+
+    <!-- Form Novo Gasto -->
+    <section class="section-form">
+      <h3 class="section-title"> Registrar Novo Gasto</h3>
+      <div class="form-row">
+        <div class="form-group" style="flex: 2;">
+          <label for="nome">Descrição</label>
+          <input type="text" id="nome" placeholder="Ex: mercado, luz, internet...">
+        </div>
+        <div class="form-group">
+          <label for="valor">Valor (R$)</label>
+          <input type="number" id="valor" step="0.01" min="0.01" placeholder="0.00">
+        </div>
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select id="categoria">
+            <option value="fixo">Fixo</option>
+            <option value="variavel" selected>Variável</option>
+          </select>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 5px;">
+        <button class="btn" onclick="adicionar()">Salvar</button>
+      </div>
+    </section>
+
+    <!-- Histórico -->
+    <section class="section-historico">
+      <div class="historico-header">
+        <h3 class="section-title">📊 Histórico de Gastos</h3>
+      </div>
+      <div class="gastos-lista" id="lista-gastos">
+        <!-- Preenchido via JavaScript -->
+      </div>
+    </section>
+
+  </div> <!-- Fecho correto da div container que faltava aqui -->
+
+  <!-- Modal de Edição -->
+  <div class="modal" id="modal-editar">
+    <div class="modal-content">
+      <h3 class="section-title" style="margin-bottom: 10px;">✏️ Editar Gasto</h3>
+      <input type="hidden" id="edit-id">
+      <div class="form-group">
+        <label for="edit-nome">Descrição</label>
+        <input type="text" id="edit-nome">
+      </div>
+      <div class="form-group">
+        <label for="edit-valor">Valor (R$)</label>
+        <input type="number" id="edit-valor" step="0.01" min="0.01">
+      </div>
+      <div class="form-group">
+        <label for="edit-categoria">Categoria</label>
+        <select id="edit-categoria">
+          <option value="fixo">Fixo</option>
+          <option value="variavel">Variável</option>
+        </select>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+        <button class="btn btn-secundario" onclick="fecharModalEditar()">Cancelar</button>
+        <button class="btn" onclick="salvarEdicaoGasto()">Salvar Alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="ui.js"></script>
 </body>
 </html>
