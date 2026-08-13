@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Premium | Gestor Financeiro</title>
+    <!-- Importação do Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Sistema de Variáveis de Cores (Plutus Premium Light) */
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --border-color: #cbd5e1;
+            --text-primary: #13120f;
+            --text-secondary: #64748b;
+        /* Gradiente Dourado Corporativo */
+        --gold-gradient: linear-gradient(135deg, #f3d078 0%, #c49333 50%, #9a6b1f 100%);
+            --color-primary: #c49333; /* Indigo */
+            --color-primary-hover: #9a6b1f;
+            --color-success: #c49333; /* Esmeralda */
+            --color-danger: #a02f2ff3; /* Vermelho */
+            --color-warning: #f59e0b; /* Âmbar */
+            --font-main: 'Inter', sans-serif;
+        }
+        .filter-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-bottom: 5px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-group select {
+            padding: 8px 12px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Header Premium Plutus */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-top: 1.5rem;
+        }
+
+        header h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            margin: 0;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.08));
+            text-transform: uppercase;
+        }
+
+        header p {
+            color: #475569;
+            font-family: sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-top: 0.6rem;
+            text-transform: uppercase;
+        }
+
+        /* Dashboard de Saldo */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+            border-color: #94a3b8;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+
+        .card.card-renda::before { background: linear-gradient(to bottom, #f3d078, #c49333) !important; }
+        .card.card-despesas::before { background-color: var(--color-danger)!important; }
+        .card.card-saldo::before { background: linear-gradient(to bottom, #f3d078, #c49333) !important; }
+
+        .card-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f172a 
+        }
+            #txt-renda {
+                background: var(--gold-gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+        }
+            #txt-despesas {
+                color: var(--color-danger) !important;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: var(--color-danger) !important;
+        }
+            #txt-saldo {
+                background: var(--gold-gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+    }    
+       .card-btn-edit {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .card-btn-edit:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
+
+        /* Renda Input Container (Expansível) */
+        .renda-form-container {
+            display: none;
+            margin-top: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Formulários e Inputs */
+        .section-form {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        input, select {
+            background-color: #ffffff; /* Fundo totalmente branco para os campos ficarem limpos */
+            border: 1px solid #cbd5e1; /* Borda cinza suave moderna */
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--color-primary); /* Brilha dourado ao clicar */
+            box-shadow: 0 0 0 3px rgba(196, 147, 51, 0.15);
+        }
+
+    /* Botão Principal Dourado Metálico */
+        button.btn {
+            background: var(--gold-gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(196, 147, 51, 0.2);
+        }
+
+        button.btn:hover {
+            opacity: 0.9;
+        }
+
+        button.btn:active {
+  transform: scale(0.98);
+        }
+
+        button.btn-secundario {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        button.btn-secundario:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Seção Histórico */
+        .section-historico {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .historico-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }   
+
+        .gastos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .gasto-item {
+            background-color: #ffffff; /* Itens do histórico brancos e limpos */
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+        }
+
+        .gasto-item:hover {
+            transform: translateX(4px);
+            border-color: #94a3b8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .gasto-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .gasto-categoria-icon {
+            font-size: 1.3rem;
+            background-color: #f8fafc;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .gasto-detalhes {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .gasto-nome {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .gasto-meta {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 10px;
+        }
+
+        .badge-categoria {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Badges discretas sem cores neon gritantes */
+        .badge-fixo {
+            background-color: rgba(196, 147, 51, 0.1);
+            color: #c49333;
+        }
+
+        .badge-variavel {
+            background-color: rgba(100, 116, 139, 0.1);
+            color: #64748b;
+        }
+
+        .gasto-valores {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .gasto-preco {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Ações */
+        .gasto-acoes {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-acao {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            transition: background-color 0.2s, color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-acao:hover {
+            background-color: #f1f5f9;
+        }
+
+        .btn-excluir:hover {
+            color: var(--color-danger);
+            background-color: rgba(239, 68, 68, 0.08);
+        }
+
+        .btn-editar:hover {
+            color: var(--color-primary);
+            background-color: rgba(196, 147, 51, 0.08);
+        }
+
+        /* Modal / Edit Overlay */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.4); /* Escurecimento suave em azul escuro */
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Utilitários */
+        .vazio-msg {
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 30px;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            body {
+             padding: 20px 10px;
+        }
+        .form-row {
+            flex-direction: column;
+        }
+        .gasto-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .gasto-valores {
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 10px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+        }
+    
+    </style>
+    </head>
+    <body>
+    <div class="container">
+    
+        <!-- Cabeçalho Premium Plutus -->
+    <header>
+      <h1>Plutus</h1>
+      <p>Inteligência Financeira</p>
+    </header>
+    <!-- Filtro de Período -->
+    <div class="filter-container">
+      <div class="filter-group">
+        <label for="filtro-mes">Mês</label>
+        <select id="filtro-mes">
+          <option value="01">Janeiro</option>
+          <option value="02">Fevereiro</option>
+          <option value="03">Março</option>
+          <option value="04">Abril</option>
+          <option value="05">Maio</option>
+          <option value="06">Junho</option>
+          <option value="07">Julho</option>
+          <option value="08">Agosto</option>
+          <option value="09">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filtro-ano">Ano</label>
+        <select id="filtro-ano">
+          <option value="2025">2025</option>
+          <option value="2026" selected>2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <section class="dashboard">
+      <div class="card card-renda">
+        <div class="card-title">
+          <span>Renda Mensal</span>
+          <button class="card-btn-edit" onclick="toggleRendaForm()">Editar</button>
+        </div>
+        <div class="card-value" id="txt-renda">R$ 0,00</div>
+        
+                <!-- Formulário Inline para Renda Ajustado -->
+        <div class="renda-form-container" id="renda-form-container" style="margin-top: 15px;">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="number" id="renda-input" placeholder="Digite a renda (R$)" style="padding: 10px; font-size: 0.9rem; width: 100%;">
+            <button class="btn" onclick="atualizarRenda()" style="padding: 10px; font-size: 0.9rem; width: 100%; justify-content: center;">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-despesas">
+        <div class="card-title">Despesas Totais</div>
+        <div class="card-value" id="txt-despesas">R$ 0,00</div>
+
+      </div>
+
+      <div class="card card-saldo" id="card-saldo">
+        <div class="card-title">Saldo Livre</div>
+        <div class="card-value" id="txt-saldo">R$ 0,00</div>
+      </div>
+    </section>
+
+    <!-- Form Novo Registro -->
+    <section class="section-form">
+      <h3 class="section-title"> Novo Registro</h3>
+      <div class="form-row">
+        <div class="form-group" style="flex: 2;">
+          <label for="nome">Descrição</label>
+          <input type="text" id="nome" placeholder="Ex: mercado, luz, internet...">
+        </div>
+        <div class="form-group">
+          <label for="valor">Valor (R$)</label>
+          <input type="number" id="valor" step="0.01" min="0.01" placeholder="0.00">
+        </div>
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select id="categoria">
+            <option value="fixo">Fixo</option>
+            <option value="variavel" selected>Variável</option>
+          </select>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 5px;">
+        <button class="btn" onclick="adicionargasto()">Salvar</button>
+      </div>
+    </section>
+    <div class="form-row" style="margin-top: 15px;">
+    </div>
+    </section>
+
+    <!-- Histórico -->
+    <section class="section-historico">
+      <div class="historico-header">
+        <h3 class="section-title">📊 Histórico de Gastos</h3>
+      </div>
+      <div class="gastos-lista" id="lista-gastos">
+        <!-- Preenchido via JavaScript -->
+      </div>
+    </section>
+
+  </div> <!-- Fecho correto da div container que faltava aqui -->
+
+  <!-- Modal de Edição -->
+  <div class="modal" id="modal-editar">
+    <div class="modal-content">
+      <h3 class="section-title" style="margin-bottom: 10px;">✏️ Editar Gasto</h3>
+      <input type="hidden" id="edit-id">
+      <div class="form-group">
+        <label for="edit-nome">Descrição</label>
+        <input type="text" id="edit-nome">
+      </div>
+      <div class="form-group">
+        <label for="edit-valor">Valor (R$)</label>
+        <input type="number" id="edit-valor" step="0.01" min="0.01">
+      </div>
+      <div class="form-group">
+        <label for="edit-categoria">Categoria</label>
+        <select id="edit-categoria">
+          <option value="fixo">Fixo</option>
+          <option value="variavel">Variável</option>
+        </select>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+        <button class="btn btn-secundario" onclick="fecharModalEditar()">Cancelar</button>
+        <button class="btn" onclick="salvarEdicaog
+        getComputedStyle()">Salvar Alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script type="module" src="{{ url_for('static', filename='api.js') }}"></script>
+</body>
+</html>

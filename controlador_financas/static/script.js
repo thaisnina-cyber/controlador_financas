@@ -1,4 +1,4 @@
-const URL_API = "http://127.0.0.1:5000/dados";
+const URL_API = "http://127.0.0.1:8080/dados";
 
 
 function toggleRendaForm() {

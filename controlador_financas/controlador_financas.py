@@ -1,15 +1,15 @@
 import json
 import uuid
 from datetime import datetime
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-
+app.url_map.strict_slashes = False
 def carregar_dados():
     try:
-        with open("dados.json", "r") as arquivo:
+        with open("dados.json", "r", encoding="utf-8") as arquivo:
             dados_salvos = json.load(arquivo)
             return dados_salvos.get("lista_de_gastos", []), dados_salvos.get("valor_da_renda", 0.0)
     except (FileNotFoundError, json.JSONDecodeError, KeyError):
@@ -17,8 +17,14 @@ def carregar_dados():
 
 def salvar_dados(renda, historico):
     dados_salvos = {"valor_da_renda": renda, "lista_de_gastos": historico}
-    with open("dados.json", "w") as arquivo:
-        json.dump(dados_salvos, arquivo, indent=4)
+    with open("dados.json", "w", encoding="utf-8") as arquivo:
+        json.dump(dados_salvos, arquivo, indent=4, ensure_ascii=False)
+@app.route("/") 
+def home(): 
+    return render_template("index.html")
+@app.route("/historico")
+def historico():
+    return render_template("historico.html")
 
 @app.route("/dados", methods=["GET"])
 def obter_dados():
@@ -35,13 +41,15 @@ def atualizar_renda():
 
 @app.route("/dados/gasto", methods=["POST"])
 def adicionar_gasto():
-    dados = request.get_json()
+    dados = request.get_json(force=True) or {}
     nome = dados.get("nome", "").strip()
     preco = dados.get("preco", 0.0)
     categoria = dados.get("categoria", "variavel")
-    
+    if not nome:
+        return jsonify({"error": "O nome do gasto não pode estar vazio!"}), 400
+        
     # Data e Hora formatadas
-    data_hora = datetime.now().strftime("%d/%m/%Y %H:%M")
+    data_hora = datetime.now().strftime("%d/%m/%Y")
     
     # Criação do novo gasto com ID único
     novo_gasto = {
@@ -54,7 +62,7 @@ def adicionar_gasto():
     
     historico, renda = carregar_dados()
     historico.append(novo_gasto)
-    salvar_dados(renda, historico)
+    salvar_dados(renda, historico, gasto=novo_gasto)
     
     return jsonify({"message": "Gasto adicionado com sucesso!", "gasto": novo_gasto})
 
@@ -94,4 +102,5 @@ def editar_gasto(gasto_id):
     return jsonify({"message": "Gasto atualizado com sucesso!"})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="127.0.0.1", port=8080)
+
