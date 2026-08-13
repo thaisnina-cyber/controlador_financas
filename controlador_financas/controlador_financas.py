@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-app.url_map.strict_slashes = False
+
 def carregar_dados():
     try:
         with open("dados.json", "r", encoding="utf-8") as arquivo:
@@ -43,26 +43,26 @@ def atualizar_renda():
 def adicionar_gasto():
     dados = request.get_json(force=True) or {}
     nome = dados.get("nome", "").strip()
-    preco = dados.get("preco", 0.0)
+    valor = dados.get("valor", 0.0)
     categoria = dados.get("categoria", "variavel")
     if not nome:
         return jsonify({"error": "O nome do gasto não pode estar vazio!"}), 400
         
-    # Data e Hora formatadas
+    # Data formatadas
     data_hora = datetime.now().strftime("%d/%m/%Y")
     
     # Criação do novo gasto com ID único
     novo_gasto = {
         "id": str(uuid.uuid4())[:8],
         "nome": nome,
-        "preco": preco,
+        "valor": valor,
         "categoria": categoria,
         "data_hora": data_hora
     }
     
     historico, renda = carregar_dados()
     historico.append(novo_gasto)
-    salvar_dados(renda, historico, gasto=novo_gasto)
+    salvar_dados(renda, historico)
     
     return jsonify({"message": "Gasto adicionado com sucesso!", "gasto": novo_gasto})
 
@@ -81,16 +81,17 @@ def deletar_gasto(gasto_id):
 def editar_gasto(gasto_id):
     dados = request.get_json()
     nome = dados.get("nome", "").strip()
-    preco = dados.get("preco", 0.0)
+    valor = dados.get("valor", 0.0)
     categoria = dados.get("categoria", "variavel")
     
     historico, renda = carregar_dados()
+    salvar_dados(renda, historico)
     editado = False
     
     for gasto in historico:
         if gasto.get("id") == gasto_id:
             gasto["nome"] = nome
-            gasto["preco"] = preco
+            gasto["valor"] = gasto.get("valor", valor)  # Mantém o valor original se não for fornecido
             gasto["categoria"] = categoria
             editado = True
             break

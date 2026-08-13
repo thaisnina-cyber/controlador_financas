@@ -1,4 +1,4 @@
-const URL_API = "http://127.0.0.1:8080/dados";
+const URL_API = "http://127.0.0.1:8080/";
 
 
 function toggleRendaForm() {
@@ -9,7 +9,7 @@ function toggleRendaForm() {
 
 async function carregarDados() {
     try {
-        const resposta = await fetch(URL_API);
+        const resposta = await fetch(`${URL_API}/dados`);
         const dados = await resposta.json();
         
         const renda = dados.renda || 0;
@@ -76,7 +76,7 @@ async function adicionarGasto() {
         await fetch(`${URL_API}/gasto`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome: nome, preco: valor, categoria: categoria, mesAno: mesAno })
+            body: JSON.stringify({ nome: nome, valor: valor, categoria: categoria, mesAno: mesAno })
         });
         
         inputNome.value = "";
@@ -135,7 +135,7 @@ async function salvarEdicaoGasto() {
         await fetch(`${URL_API}/gasto/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome: nome, preco: valor, categoria: categoria })
+            body: JSON.stringify({ nome: nome, valor: valor, categoria: categoria })
         });
         
         fecharModalEditar();
